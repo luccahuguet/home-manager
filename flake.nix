@@ -1,17 +1,13 @@
+# flake.nix
 {
   description = "Lucca's Home Manager Flake for loqness (Nix Unstable)";
 
   inputs = {
-    # Nixpkgs from the unstable branch
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
-    # Home Manager from its master branch (tracks nixpkgs-unstable)
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Fenix for Rust toolchains
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,10 +20,13 @@
       username = "lucca";
       hostname = "loqness";
 
-      # Apply fenix overlay to nixpkgs
+      # Apply fenix overlay and allow unfree packages
       pkgs = import nixpkgs {
         inherit system;
         overlays = [ fenix.overlays.default ];
+        config.allowUnfree = true; # Allow all unfree packages
+        # Alternatively, use a predicate for specific packages:
+        # config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "vscode" ];
       };
     in
     {

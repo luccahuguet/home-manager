@@ -29,6 +29,9 @@
     fenix.stable.toolchain
     bottom # Added bottom here
     mise
+    maven
+    nushell
+    zoxide
   ];
 
   # --- Dotfile Management ---
