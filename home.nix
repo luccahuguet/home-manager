@@ -27,11 +27,12 @@
   home.packages = with pkgs; [
     # Rust toolchain from fenix (includes rustc, cargo, rustfmt, clippy, rust-analyzer)
     fenix.stable.toolchain
-    bottom
+    bottom # Added bottom here
+    mise
   ];
 
   # --- Dotfile Management ---
   home.file = {
-    ".config/helix/config.toml".source = ./dotfiles/helix/config.toml;
+    ".config/helix/config.toml".source = /home/lucca/.config/home-manager/dotfiles/helix/config.toml;
   };
 }
