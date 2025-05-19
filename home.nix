@@ -37,5 +37,6 @@
   # --- Dotfile Management ---
   home.file = {
     ".config/helix/config.toml".source = /home/lucca/.config/home-manager/dotfiles/helix/config.toml;
+    ".config/helix/languages.toml".source = /home/lucca/.config/home-manager/dotfiles/helix/languages.toml;
   };
 }
