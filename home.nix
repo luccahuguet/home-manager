@@ -1,5 +1,13 @@
 # This file is imported by flake.nix
-{ pkgs, inputs, config, lib, username, hostname, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  lib,
+  username,
+  hostname,
+  ...
+}:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -19,24 +27,45 @@
   # --- Environment Variables ---
   home.sessionVariables = {
     # Ensure COSMIC's pop-launcher finds .desktop files in ~/.nix-profile/share
-    XDG_DATA_DIRS =
-      "${config.home.homeDirectory}/.nix-profile/share:/usr/share:/usr/local/share:${config.home.homeDirectory}/.local/share";
+    XDG_DATA_DIRS = "${config.home.homeDirectory}/.nix-profile/share:/usr/share:/usr/local/share:${config.home.homeDirectory}/.local/share";
+
+    # Ensure PATH includes essential system directories
+    PATH = "/bin:/usr/bin:/usr/local/bin:$PATH";
   };
 
-  # --- Rust Configuration ---
   home.packages = with pkgs; [
-    # Rust toolchain from fenix (includes rustc, cargo, rustfmt, clippy, rust-analyzer)
     fenix.stable.toolchain
-    bottom # Added bottom here
+    bottom
     mise
     maven
-    nushell
-    zoxide
+    # nushell
+    uv
+    bun
+    elan
+    erdtree
+    biome
+    nodePackages.svelte-language-server
+    ruff
+    taplo
+    nixfmt-rfc-style
+    (rustPlatform.buildRustPackage rec {
+      pname = "rusty-rain";
+      version = "0.2.0";
+      src = fetchCrate {
+        inherit pname version;
+        sha256 = "sha256-WhxaVeyiM/76CUSi/LyefGHsGYW/CeAyRhVCIJtG3qk=";
+      };
+      cargoLock = {
+        lockFile = "${src}/Cargo.lock";
+      };
+      meta = with lib; {
+        description = "A Rust-based terminal rain animation";
+        homepage = "https://github.com/cowboy8625/rusty-rain";
+        license = licenses.mit;
+      };
+    })
   ];
 
   # --- Dotfile Management ---
-  home.file = {
-    ".config/helix/config.toml".source = /home/lucca/.config/home-manager/dotfiles/helix/config.toml;
-    ".config/helix/languages.toml".source = /home/lucca/.config/home-manager/dotfiles/helix/languages.toml;
-  };
+  # Helix configuration moved to ~/.config/helix/ for better integration with yazelix
 }
