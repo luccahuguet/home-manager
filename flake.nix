@@ -12,18 +12,22 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixgl = {
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, fenix, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, fenix, nixgl, ... }@inputs:
     let
       system = "x86_64-linux";
       username = "lucca";
       hostname = "loqness";
 
-      # Apply fenix overlay and allow unfree packages
+      # Apply fenix and nixgl overlays and allow unfree packages
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ fenix.overlays.default ];
+        overlays = [ fenix.overlays.default nixgl.overlay ];
         config.allowUnfree = true; # Allow all unfree packages
         # Alternatively, use a predicate for specific packages:
         # config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "vscode" ];
@@ -38,7 +42,9 @@
             inherit username;
             inherit hostname;
           };
-          modules = [ ./home.nix ];
+          modules = [
+            ./home.nix
+          ];
         };
     };
 }

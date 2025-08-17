@@ -36,18 +36,11 @@
   home.packages = with pkgs; [
     fenix.stable.toolchain
     bottom
-    mise
+    nixgl.nixGLIntel
     maven
-    # nushell
-    uv
-    bun
-    elan
-    erdtree
-    biome
-    nodePackages.svelte-language-server
-    ruff
-    taplo
-    nixfmt-rfc-style
+    nushell
+    parallel
+    # nixfmt-rfc-style
     (rustPlatform.buildRustPackage rec {
       pname = "rusty-rain";
       version = "0.2.0";
@@ -64,8 +57,20 @@
         license = licenses.mit;
       };
     })
+    # nixGL wrappers for terminal emulators (GPU acceleration support)
+    (writeShellScriptBin "ghostty-nixgl" ''
+      exec ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.ghostty}/bin/ghostty "$@"
+    '')
+    (writeShellScriptBin "kitty-nixgl" ''
+      exec ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
+    '')
   ];
 
   # --- Dotfile Management ---
   # Helix configuration moved to ~/.config/helix/ for better integration with yazelix
+
+  # --- Program Configuration ---
+  # Terminal emulators use their default config locations
+  # Kitty: ~/.config/kitty/kitty.conf  (use kitty-nixgl wrapper)
+  # Ghostty: ~/.config/ghostty/config  (use ghostty-nixgl wrapper)
 }
