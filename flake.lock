@@ -192,6 +192,27 @@
         "type": "github"
       }
     },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
+          "yazelix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777004352,
+        "narHash": "sha256-SV+9PgNwZ8jHVCjK6YaCBzaheLSW7cDnm5DpOYrD8Vw=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "6012cf1fed3eba66115f3fd117b9be6bd2a15b2f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "import-tree": {
       "locked": {
         "lastModified": 1763762820,
@@ -415,6 +436,7 @@
       "inputs": {
         "beads": "beads",
         "fenix": "fenix",
+        "home-manager": "home-manager_2",
         "nixgl": "nixgl",
         "nixpkgs": [
           "nixpkgs"
@@ -422,13 +444,17 @@
         "zjstatus": "zjstatus"
       },
       "locked": {
-        "narHash": "sha256-kSid1/iDt40LD+fwiDMz10n5sO0BQtUSLABUH19GUL4=",
-        "path": "/home/lucca/pjs/yazelix",
-        "type": "path"
+        "lastModified": 1777146703,
+        "narHash": "sha256-tkwZZY9wLZJEAG15slWI/2HiNB/CE3UsXd1lH/lJzoI=",
+        "ref": "refs/heads/main",
+        "rev": "d92a0da9b140c095328789dbe080b5673e37ac54",
+        "revCount": 2273,
+        "type": "git",
+        "url": "file:///home/lucca/pjs/yazelix"
       },
       "original": {
-        "path": "/home/lucca/pjs/yazelix",
-        "type": "path"
+        "type": "git",
+        "url": "file:///home/lucca/pjs/yazelix"
       }
     },
     "zjstatus": {

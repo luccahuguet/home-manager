@@ -12,7 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     yazelix = {
-      url = "path:/home/lucca/pjs/yazelix";
+      url = "git+file:///home/lucca/pjs/yazelix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

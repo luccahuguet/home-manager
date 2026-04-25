@@ -1,6 +1,35 @@
 { config, lib, pkgs, inputs, ... }:
   let
-    aiPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+    system = pkgs.stdenv.hostPlatform.system;
+    aiPkgs = inputs.llm-agents.packages.${system};
+
+    codex-latest = pkgs.stdenv.mkDerivation rec {
+      pname = "codex";
+      version = "0.125.0";
+
+      src = pkgs.fetchurl {
+        url = "https://github.com/openai/codex/releases/download/rust-v${version}/codex-x86_64-unknown-linux-musl.tar.gz";
+        hash = "sha256-SiClOUOn5qDF+kRj1OR8WN2OVT7OveRVpBB+mQa/sAE=";
+      };
+
+      nativeBuildInputs = [ pkgs.gnutar pkgs.gzip ];
+
+      unpackPhase = ''
+        tar xzf $src
+      '';
+
+      installPhase = ''
+        mkdir -p $out/bin
+        cp codex-x86_64-unknown-linux-musl $out/bin/codex
+        chmod +x $out/bin/codex
+      '';
+
+      meta = {
+        description = "OpenAI Codex CLI - lightweight coding agent";
+        homepage = "https://github.com/openai/codex";
+        license = lib.licenses.asl20;
+      };
+    };
   in
 
 {
@@ -21,7 +50,7 @@
     ])
     ++ [
       aiPkgs.claude-code
-      aiPkgs.codex
+      codex-latest
       aiPkgs.opencode
     ];
 
@@ -29,7 +58,6 @@
   programs.home-manager.enable = true;
 
   programs.yazelix = {
-    # enable = true;
-    enable = false;
+    enable = true;
   };
 }
