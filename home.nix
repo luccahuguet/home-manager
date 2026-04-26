@@ -47,6 +47,11 @@
       mdfried
       imagemagick
       ffmpeg
+      cargo
+      rustc
+      rustfmt
+      clippy
+      rust-analyzer
     ])
     ++ [
       aiPkgs.claude-code
@@ -56,8 +61,10 @@
 
   # Apply with: home-manager switch --flake .#lucca@loqness
   programs.home-manager.enable = true;
+  manual.manpages.enable = false;
 
   programs.yazelix = {
     enable = true;
+    manage_config = false;
   };
 }
