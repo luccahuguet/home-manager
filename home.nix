@@ -19,6 +19,7 @@
       mdfried
       imagemagick
       ffmpeg
+      bun
       cargo
       rustc
       rustfmt
