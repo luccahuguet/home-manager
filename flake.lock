@@ -179,11 +179,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777733408,
-        "narHash": "sha256-lyKV2GtkMPS1Mp8bKJ8sBr7LPCzL4GnVnQQYa4e7UsQ=",
+        "lastModified": 1777771152,
+        "narHash": "sha256-+J0PGlJpLvo1ukmHM0ksI8PtBDwMCYyh87rbs86F0/c=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9ce9f7f128c5834bb71a4f5c62232187371379b6",
+        "rev": "9c9fc9368a6d9e698d03d3780d3b930ebc060334",
         "type": "github"
       },
       "original": {
@@ -225,11 +225,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1777698621,
-        "narHash": "sha256-AmiRSWOXXJyB/rBRZZKwJWRfM5O+xGO4Pe8V+XFd6Kc=",
+        "lastModified": 1777769716,
+        "narHash": "sha256-hIh5MIF5T+JpTtOXt/1A+6dH2ngGeZVw1UH9K2NKWS0=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "a2cd1d9eda4a84d713153f718c8583e1a4c89983",
+        "rev": "03eace0567fae62662191ec3c2c3721c2a32b454",
         "type": "github"
       },
       "original": {
@@ -429,11 +429,11 @@
         "zjstatus": "zjstatus"
       },
       "locked": {
-        "lastModified": 1777744464,
-        "narHash": "sha256-ezkbvxmS4U6IIJKQtgcy6AIs3U1977camDTsBwA1v5Q=",
+        "lastModified": 1777774289,
+        "narHash": "sha256-vr1gJPG0ff/bxS3tSKtfmjdY3tbmuhFLhbsfVbBhagg=",
         "ref": "refs/heads/main",
-        "rev": "049c24768b0757c3e4caf68aeab11671bfda0ea3",
-        "revCount": 2466,
+        "rev": "f3158bc23cad8cfa40552a90613350e52ecb08a8",
+        "revCount": 2475,
         "type": "git",
         "url": "file:///home/lucca/pjs/yazelix"
       },
