@@ -15,6 +15,12 @@
       url = "git+file:///home/lucca/pjs/yazelix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Disabled by default in home.nix. Kept locked for quick plain-Zellij
+    # Yazelix Zellij Popup smoke tests.
+    yazelix-zellij-popup = {
+      url = "github:luccahuguet/yazelix-zellij-popup";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ nixpkgs, home-manager, ... }:
