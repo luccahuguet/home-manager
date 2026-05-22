@@ -7,25 +7,7 @@
     # Yazelix Zellij Popup smoke session with lazygit on Alt-g.
     enableYzppSmoke = false;
     yzpp = inputs.yazelix-zellij-popup.packages.${system}.yzpp;
-    beadsRust = pkgs.stdenvNoCC.mkDerivation {
-      pname = "beads-rust";
-      version = "0.2.3";
-
-      src = pkgs.fetchurl {
-        url = "https://github.com/Dicklesworthstone/beads_rust/releases/download/v0.2.3/br-v0.2.3-linux_musl_amd64.tar.gz";
-        sha256 = "0pmrwxagcyfcm5g4i10xhxw6l67fr06nsy23jks2jvjazcsqln15";
-      };
-
-      dontUnpack = true;
-      dontBuild = true;
-
-      installPhase = ''
-        runHook preInstall
-        tar -xzf $src br
-        install -Dm755 br $out/bin/br
-        runHook postInstall
-      '';
-    };
+    beadsRust = inputs.yazelix.packages.${system}.beads_rust;
     vercelCli = pkgs.writeShellApplication {
       name = "vercel";
       runtimeInputs = [ pkgs.nodejs_24 ];

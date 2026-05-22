@@ -1,24 +1,5 @@
 {
   "nodes": {
-    "beads": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1775194149,
-        "narHash": "sha256-D2jShGpkOWKx9aRmRvV5bmV8t0/Y2eAE8q0m54QrRN0=",
-        "owner": "steveyegge",
-        "repo": "beads",
-        "rev": "72170267e00a96ec888f68a3279ddf0173b7adc7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "steveyegge",
-        "ref": "v1.0.0",
-        "repo": "beads",
-        "type": "github"
-      }
-    },
     "blueprint": {
       "inputs": {
         "nixpkgs": [
@@ -116,7 +97,7 @@
     },
     "fenix_2": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "rust-analyzer-src": "rust-analyzer-src_2"
       },
       "locked": {
@@ -313,7 +294,7 @@
     "nixgl": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1762090880,
@@ -347,22 +328,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1775710090,
-        "narHash": "sha256-ar3rofg+awPB8QXDaFJhJ2jJhu+KqN/PRCXeyuXR76E=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "4c1018dae018162ec878d42fec712642d214fdfa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1746378225,
         "narHash": "sha256-OeRSuL8PUjIfL3Q0fTbNJD/fmv1R+K2JAOqWJd3Oceg=",
         "owner": "nixos",
@@ -376,7 +341,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1777578337,
         "narHash": "sha256-Ad49moKWeXtKBJNy2ebiTQUEgdLyvGmTeykAQ9xM+Z4=",
@@ -570,7 +535,6 @@
     },
     "yazelix": {
       "inputs": {
-        "beads": "beads",
         "fenix": "fenix",
         "home-manager": "home-manager_2",
         "nixgl": "nixgl",
@@ -588,11 +552,11 @@
         "zjstatus": "zjstatus"
       },
       "locked": {
-        "lastModified": 1779438161,
-        "narHash": "sha256-0QElT/Z4sWB4GUrVkuw2rsmeO+WtQorQZVnuTQAsOMA=",
+        "lastModified": 1779443739,
+        "narHash": "sha256-PO7pztdL9iCMdtDh7Y61dKL5kiinOhkzbTuMJtnEnXs=",
         "ref": "refs/heads/main",
-        "rev": "274d5cf8b564194020d83eafef23414fc167ba0f",
-        "revCount": 2922,
+        "rev": "1b8ea730445d1b2127197db33b192f7690548d4d",
+        "revCount": 2924,
         "type": "git",
         "url": "file:///home/lucca/pjs/yazelix"
       },
