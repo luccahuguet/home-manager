@@ -145,7 +145,6 @@
 
   programs.yazelix = {
     enable = true;
-    package = inputs.yazelix.packages.${system}.yazelix_ghostty_kgp_preview_agent_tools;
     manage_config = false;
     agent_usage_programs = [
       "tokenusage"
