@@ -74,6 +74,8 @@
       gh
       tokei
       mdfried
+      pandoc
+      typst
       imagemagick
       ffmpeg
       bun
@@ -93,7 +95,6 @@
     ])
     ++ [
       aiPkgs.claude-code
-      aiPkgs.codex
       aiPkgs.opencode
       aiPkgs.beads-viewer
       beadsRust
