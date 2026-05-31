@@ -575,11 +575,11 @@
         "zjstatus": "zjstatus"
       },
       "locked": {
-        "lastModified": 1780257633,
-        "narHash": "sha256-eOHwj6QLpmfsM6l/nl/9xrzpMAZGPFFEYxaLm91w9m8=",
+        "lastModified": 1780260420,
+        "narHash": "sha256-ZpNt9ghCQZOC6siSSx5cuV63FRYakexJB/RButsguB8=",
         "ref": "refs/heads/main",
-        "rev": "42af1259d0fa6d64b4f0cddbc6070d8ed16426e6",
-        "revCount": 3053,
+        "rev": "4499362585d32d143089f3d1b2dadc920a083952",
+        "revCount": 3055,
         "type": "git",
         "url": "file:///home/lucca/pjs/yazelix"
       },
