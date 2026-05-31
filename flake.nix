@@ -15,6 +15,10 @@
       url = "git+file:///home/lucca/pjs/yazelix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    yazelix-terminal = {
+      url = "git+file:///home/lucca/pjs/yazelix-terminal?rev=82cd3e99b8494f84c78000bc910fff1748acf442";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Disabled by default in home.nix. Kept locked for quick plain-Zellij
     # Yazelix Zellij Popup smoke tests.
     yazelix-zellij-popup = {

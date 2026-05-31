@@ -8,6 +8,8 @@
     enableYzppSmoke = false;
     yzpp = inputs.yazelix-zellij-popup.packages.${system}.yzpp;
     beadsRust = inputs.yazelix.packages.${system}.beads_rust;
+    yazelixTerminal =
+      inputs.yazelix-terminal.packages.${system}.yazelix-terminal-fast;
     vercelCli = pkgs.writeShellApplication {
       name = "vercel";
       runtimeInputs = [ pkgs.nodejs_24 ];
@@ -60,6 +62,19 @@
       typst
       imagemagick
       ffmpeg
+      # Desktop/input diagnostics for terminal and compositor work.
+      bottom
+      dotool
+      htop
+      procs
+      wev
+      wl-clipboard
+      wshowkeys
+      wtype
+      xdotool
+      ydotool
+      # Expose npx/npm to non-interactive tools like git hooks.
+      nodejs_24
       bun
       cargo
       cargo-nextest
@@ -80,6 +95,7 @@
       aiPkgs.opencode
       aiPkgs.beads-viewer
       beadsRust
+      yazelixTerminal
       vercelCli
       flyctl
     ]
@@ -117,8 +133,20 @@
       }
     '';
   };
-  home.file = lib.mkIf enableYzppSmoke {
-    ".local/bin/zellij".source = "${zellijPlainPopup}/bin/zellij";
+  home.file = lib.mkMerge [
+    (lib.mkIf enableYzppSmoke {
+      ".local/bin/zellij".source = "${zellijPlainPopup}/bin/zellij";
+    })
+    {
+      ".local/bin/yazelix_terminal_rio" = {
+        source = "${yazelixTerminal}/bin/yazelix-terminal-desktop";
+        force = true;
+      };
+    }
+  ];
+  xdg.dataFile."applications/yazelix-terminal.desktop" = {
+    source = "${yazelixTerminal}/share/applications/yazelix-terminal.desktop";
+    force = true;
   };
 
   # Apply with: home-manager switch --flake .#lucca@loqness
