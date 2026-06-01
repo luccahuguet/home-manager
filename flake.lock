@@ -645,11 +645,11 @@
         "zjstatus": "zjstatus"
       },
       "locked": {
-        "lastModified": 1780263174,
-        "narHash": "sha256-FHqShb7IkjNbGzDgmGs0UcTekA57GhOrm+4TuphQbxg=",
+        "lastModified": 1780273740,
+        "narHash": "sha256-brM91tdQ4j29gVNIg+LjmYj23L5u3JdCVXNGZj4fXGg=",
         "ref": "refs/heads/main",
-        "rev": "d9ba4148d101677e662b7f09332b0aac3203a608",
-        "revCount": 3056,
+        "rev": "8295e3fcb8a7d568055bd9152a96fc09bcb4a153",
+        "revCount": 3066,
         "type": "git",
         "url": "file:///home/lucca/pjs/yazelix"
       },
@@ -668,18 +668,19 @@
         "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1780264208,
-        "narHash": "sha256-oDLYvC1evUfJ78CAo9y2RKJEZoXsGcJxeOTfqckV8pI=",
+        "lastModified": 1780274308,
+        "narHash": "sha256-QgOIztYPgufo1bE0R5fnKpRI67ttWjXyVasIr0x9Wt8=",
         "ref": "refs/heads/yazelix-terminal-experiment",
-        "rev": "82cd3e99b8494f84c78000bc910fff1748acf442",
-        "revCount": 4332,
+        "rev": "43969477b5eb5a03bbbfb9766d26601806a4153b",
+        "revCount": 4339,
         "type": "git",
-        "url": "file:///home/lucca/pjs/yazelix-terminal"
+        "url": "https://github.com/luccahuguet/yazelix-terminal.git"
       },
       "original": {
-        "rev": "82cd3e99b8494f84c78000bc910fff1748acf442",
+        "ref": "refs/heads/yazelix-terminal-experiment",
+        "rev": "43969477b5eb5a03bbbfb9766d26601806a4153b",
         "type": "git",
-        "url": "file:///home/lucca/pjs/yazelix-terminal"
+        "url": "https://github.com/luccahuguet/yazelix-terminal.git"
       }
     },
     "yazelix-zellij-popup": {
@@ -817,16 +818,16 @@
     "yazelixZellij": {
       "flake": false,
       "locked": {
-        "lastModified": 1779429316,
-        "narHash": "sha256-P9dlqsfiT5/3lXXONX+6cWk5Qm6QWocvdN4rjdxwTXc=",
+        "lastModified": 1780269902,
+        "narHash": "sha256-srCoomOVte13ISMFC/SlNOKXVH0qBRov6+MmvMw7Nx8=",
         "owner": "luccahuguet",
         "repo": "yazelix-zellij",
-        "rev": "c10aad0dd657d7df0e2c39762df0daba404a564b",
+        "rev": "bfbd06d5737ab4dffcc5cfb2ae3cd5fe1bda24f9",
         "type": "github"
       },
       "original": {
         "owner": "luccahuguet",
-        "ref": "yazelix-kgp-preview-0",
+        "ref": "yazelix-kgp-preview-1",
         "repo": "yazelix-zellij",
         "type": "github"
       }
