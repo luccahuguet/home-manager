@@ -668,17 +668,17 @@
         "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1780274308,
-        "narHash": "sha256-QgOIztYPgufo1bE0R5fnKpRI67ttWjXyVasIr0x9Wt8=",
+        "lastModified": 1780274770,
+        "narHash": "sha256-n2S6htOajR0mUOhK4w5fe5S7wz2ITYU+klAkRYH+L6U=",
         "ref": "refs/heads/yazelix-terminal-experiment",
-        "rev": "43969477b5eb5a03bbbfb9766d26601806a4153b",
-        "revCount": 4339,
+        "rev": "1e54b3f7f592944ee9aa18eef15eb81d804cfa21",
+        "revCount": 4340,
         "type": "git",
         "url": "https://github.com/luccahuguet/yazelix-terminal.git"
       },
       "original": {
         "ref": "refs/heads/yazelix-terminal-experiment",
-        "rev": "43969477b5eb5a03bbbfb9766d26601806a4153b",
+        "rev": "1e54b3f7f592944ee9aa18eef15eb81d804cfa21",
         "type": "git",
         "url": "https://github.com/luccahuguet/yazelix-terminal.git"
       }
