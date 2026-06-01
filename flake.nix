@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     yazelix-terminal = {
-      url = "git+https://github.com/luccahuguet/yazelix-terminal.git?ref=refs/heads/yazelix-terminal-experiment&rev=1e54b3f7f592944ee9aa18eef15eb81d804cfa21";
+      url = "github:luccahuguet/yazelix-terminal";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Disabled by default in home.nix. Kept locked for quick plain-Zellij

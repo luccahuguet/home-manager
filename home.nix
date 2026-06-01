@@ -8,6 +8,12 @@
     enableYzppSmoke = false;
     yzpp = inputs.yazelix-zellij-popup.packages.${system}.yzpp;
     beadsRust = inputs.yazelix.packages.${system}.beads_rust;
+    rustToolchain = inputs.yazelix.inputs.fenix.packages.${system}.combine [
+      inputs.yazelix.inputs.fenix.packages.${system}.stable.cargo
+      inputs.yazelix.inputs.fenix.packages.${system}.stable.rustc
+      inputs.yazelix.inputs.fenix.packages.${system}.stable.rustfmt
+      inputs.yazelix.inputs.fenix.packages.${system}.stable.clippy
+    ];
     yazelixTerminal =
       inputs.yazelix-terminal.packages.${system}.yazelix-terminal-fast;
     vercelCli = pkgs.writeShellApplication {
@@ -62,6 +68,7 @@
       typst
       imagemagick
       ffmpeg
+      wezterm
       # Desktop/input diagnostics for terminal and compositor work.
       bottom
       dotool
@@ -76,12 +83,8 @@
       # Expose npx/npm to non-interactive tools like git hooks.
       nodejs_24
       bun
-      cargo
       cargo-nextest
       cargo-udeps
-      rustc
-      rustfmt
-      clippy
       rust-analyzer
       jq
       nu-lint
@@ -95,7 +98,7 @@
       aiPkgs.opencode
       aiPkgs.beads-viewer
       beadsRust
-      yazelixTerminal
+      rustToolchain
       vercelCli
       flyctl
     ]
@@ -156,6 +159,7 @@
   programs.yazelix = {
     enable = true;
     manage_config = false;
+    runtime_variant = "yzxterm";
     agent_usage_programs = [
       "tokenusage"
     ];
