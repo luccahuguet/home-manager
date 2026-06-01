@@ -14,8 +14,6 @@
       inputs.yazelix.inputs.fenix.packages.${system}.stable.rustfmt
       inputs.yazelix.inputs.fenix.packages.${system}.stable.clippy
     ];
-    yazelixTerminal =
-      inputs.yazelix-terminal.packages.${system}.yazelix-terminal-fast;
     vercelCli = pkgs.writeShellApplication {
       name = "vercel";
       runtimeInputs = [ pkgs.nodejs_24 ];
@@ -68,7 +66,6 @@
       typst
       imagemagick
       ffmpeg
-      wezterm
       # Desktop/input diagnostics for terminal and compositor work.
       bottom
       dotool
@@ -140,17 +137,7 @@
     (lib.mkIf enableYzppSmoke {
       ".local/bin/zellij".source = "${zellijPlainPopup}/bin/zellij";
     })
-    {
-      ".local/bin/yazelix_terminal_rio" = {
-        source = "${yazelixTerminal}/bin/yazelix-terminal-desktop";
-        force = true;
-      };
-    }
   ];
-  xdg.dataFile."applications/yazelix-terminal.desktop" = {
-    source = "${yazelixTerminal}/share/applications/yazelix-terminal.desktop";
-    force = true;
-  };
 
   # Apply with: home-manager switch --flake .#lucca@loqness
   programs.home-manager.enable = true;
@@ -160,6 +147,19 @@
     enable = true;
     manage_config = false;
     runtime_variant = "yzxterm";
+    extra_terminal_variants = [
+      "ghostty"
+      "wezterm"
+      "ratty"
+      "kitty"
+    ];
+    terminals = [
+      "yzxterm"
+      "ghostty"
+      "wezterm"
+      "ratty"
+      "kitty"
+    ];
     agent_usage_programs = [
       "tokenusage"
     ];
