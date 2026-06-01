@@ -646,11 +646,11 @@
         "zjstatus": "zjstatus"
       },
       "locked": {
-        "lastModified": 1780336254,
-        "narHash": "sha256-qOOF/p7elxE3fDwz5HTNjorsOEzrSm5YheQUfURF0Q8=",
+        "lastModified": 1780343370,
+        "narHash": "sha256-kmX9ghjqXH9AwAvj/pzHb0eUQaeVYi1Q6mDYouqKgRQ=",
         "ref": "refs/heads/main",
-        "rev": "34f3e384f013d56ea9b977f815bd5a1f6a1d7327",
-        "revCount": 3092,
+        "rev": "94785781ba8629be857ae7f05b4e3a87b1e35a11",
+        "revCount": 3097,
         "type": "git",
         "url": "file:///home/lucca/pjs/yazelix"
       },
@@ -715,11 +715,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1780257199,
-        "narHash": "sha256-JW9neXwCNXBoL6EdPZIXsq67nUPaNl+FhvuMD7MlrHA=",
+        "lastModified": 1780342528,
+        "narHash": "sha256-pSE2qR4UFSMF7NT4D/12YdGwHSy8KR6RiXqvEVuqdX4=",
         "owner": "luccahuguet",
         "repo": "yazelix-helix",
-        "rev": "0b2cde5bb166736dc705feb364067f1a689b0a97",
+        "rev": "302f5bdf1b24a6bb29a7e9a9e269ddff6279c9cd",
         "type": "github"
       },
       "original": {
@@ -874,11 +874,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779556058,
-        "narHash": "sha256-EK7FRQLjjlyvljAlIMc1h/0yxKaAe/a2Hvq31K4TceM=",
+        "lastModified": 1780338955,
+        "narHash": "sha256-JdLUKxKdpErGXw2w87+OOWlw6QC3oxP19BeMX514kQA=",
         "owner": "luccahuguet",
         "repo": "yazelix-zellij-pane-orchestrator",
-        "rev": "9df68b4ffb029b104603cac84c56aff09190ce37",
+        "rev": "aafd0257e3bb2d44d5398d2dae28f1c7b16a0439",
         "type": "github"
       },
       "original": {
