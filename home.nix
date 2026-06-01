@@ -69,8 +69,10 @@
       # Desktop/input diagnostics for terminal and compositor work.
       bottom
       dotool
+      grim
       htop
       procs
+      slurp
       wev
       wl-clipboard
       wshowkeys
