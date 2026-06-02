@@ -1,10 +1,9 @@
 {
-  home.sessionVariables.YAZELIX_TERMINAL_PROFILE = "shaders";
-
   programs.yazelix = {
     enable = true;
     manage_config = false;
     runtime_variant = "yzxterm";
+    yzxterm_profile = "shaders";
     extra_terminal_variants = [
       "ghostty"
       "wezterm"
