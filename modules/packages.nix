@@ -4,6 +4,7 @@
     aiPkgs = inputs.llm-agents.packages.${system};
 
     beadsRust = inputs.yazelix.packages.${system}.beads_rust;
+    homeManager = inputs.home-manager.packages.${system}.home-manager;
     rustToolchain = inputs.yazelix.inputs.fenix.packages.${system}.combine [
       inputs.yazelix.inputs.fenix.packages.${system}.stable.cargo
       inputs.yazelix.inputs.fenix.packages.${system}.stable.rustc
@@ -15,6 +16,44 @@
       runtimeInputs = [ pkgs.nodejs_24 ];
       text = ''
         exec npx --yes vercel@53.1.0 "$@"
+      '';
+    };
+    hmSwitchCool = pkgs.writeShellApplication {
+      name = "hm-switch-cool";
+      runtimeInputs = [
+        homeManager
+        pkgs.coreutils
+      ];
+      text = ''
+        percent="''${1:-50}"
+        if [ -z "$percent" ]; then
+          echo "usage: hm-switch-cool [1-100] [home-manager switch args...]" >&2
+          exit 2
+        fi
+        case "$percent" in
+          *[!0-9]*)
+            echo "usage: hm-switch-cool [1-100] [home-manager switch args...]" >&2
+            exit 2
+            ;;
+        esac
+        if [ "$percent" -lt 1 ] || [ "$percent" -gt 100 ]; then
+          echo "usage: hm-switch-cool [1-100] [home-manager switch args...]" >&2
+          exit 2
+        fi
+        shift || true
+
+        logical_cpus="$(nproc)"
+        core_budget="$(( (logical_cpus * percent + 99) / 100 ))"
+        nix_limits="$(printf 'max-jobs = 1\ncores = %s\neval-cores = %s' "$core_budget" "$core_budget")"
+        if [ -n "''${NIX_CONFIG:-}" ]; then
+          export NIX_CONFIG="''${NIX_CONFIG}
+$nix_limits"
+        else
+          export NIX_CONFIG="$nix_limits"
+        fi
+
+        echo "home-manager switch using $percent% of logical CPUs: $core_budget/$logical_cpus cores" >&2
+        exec home-manager switch --flake "$HOME/.config/home-manager#lucca@loqness" "$@"
       '';
     };
     flyctl = pkgs.stdenvNoCC.mkDerivation {
@@ -82,6 +121,7 @@
       beadsRust
       rustToolchain
       vercelCli
+      hmSwitchCool
       flyctl
     ];
 }
