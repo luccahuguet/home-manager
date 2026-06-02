@@ -1,4 +1,6 @@
 {
+  home.sessionVariables.YAZELIX_TERMINAL_PROFILE = "shaders";
+
   programs.yazelix = {
     enable = true;
     manage_config = false;
