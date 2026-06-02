@@ -25,7 +25,7 @@
         pkgs.coreutils
       ];
       text = ''
-        percent="''${1:-50}"
+        percent="''${1:-80}"
         if [ -z "$percent" ]; then
           echo "usage: hm-switch-cool [1-100] [home-manager switch args...]" >&2
           exit 2
@@ -54,6 +54,37 @@ $nix_limits"
 
         echo "home-manager switch using $percent% of logical CPUs: $core_budget/$logical_cpus cores" >&2
         exec home-manager switch --flake "$HOME/.config/home-manager#lucca@loqness" "$@"
+      '';
+    };
+    hms = pkgs.writeShellApplication {
+      name = "hms";
+      runtimeInputs = [ hmSwitchCool ];
+      text = ''
+        percent="80"
+        case "''${1:-}" in
+          [0-9]*)
+            percent="$1"
+            shift
+            ;;
+        esac
+        exec hm-switch-cool "$percent" "$@"
+      '';
+    };
+    hmu = pkgs.writeShellApplication {
+      name = "hmu";
+      runtimeInputs = [ hmSwitchCool ];
+      text = ''
+        percent="80"
+        case "''${1:-}" in
+          [0-9]*)
+            percent="$1"
+            shift
+            ;;
+        esac
+        flake="$HOME/.config/home-manager"
+        echo "updating Yazelix input in $flake" >&2
+        nix flake update yazelix --flake "$flake"
+        exec hm-switch-cool "$percent" "$@"
       '';
     };
     flyctl = pkgs.stdenvNoCC.mkDerivation {
@@ -122,6 +153,8 @@ $nix_limits"
       rustToolchain
       vercelCli
       hmSwitchCool
+      hms
+      hmu
       flyctl
     ];
 }
