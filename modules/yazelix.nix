@@ -2,20 +2,13 @@
   programs.yazelix = {
     enable = true;
     manage_config = false;
-    runtime_variant = "yzxterm";
+    terminal = "yzxterm";
     yzxterm_profile = "shaders";
-    extra_terminal_variants = [
+    extra_terminal_launchers = [
       "ghostty"
+      "rio"
+      "foot"
       "wezterm"
-      "ratty"
-      "kitty"
-    ];
-    terminals = [
-      "yzxterm"
-      "ghostty"
-      "wezterm"
-      "ratty"
-      "kitty"
     ];
     agent_usage_programs = [
       "tokenusage"
