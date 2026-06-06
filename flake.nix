@@ -14,6 +14,11 @@
     yazelix = {
       url = "git+file:///home/lucca/pjs/yazelix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.yazelixHelix.follows = "yazelix-helix";
+    };
+    yazelix-helix = {
+      url = "git+file:///home/lucca/pjs/yazelix-helix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     rio = {
       url = "path:/home/lucca/pjs/open_source/yazelix_related/rio";

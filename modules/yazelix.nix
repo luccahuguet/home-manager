@@ -2,10 +2,11 @@
   programs.yazelix = {
     enable = true;
     manage_config = false;
-    terminal = "yzxterm";
+    terminal = "ratty";
     yzxterm_profile = "shaders";
     extra_terminal_launchers = [
       "ghostty"
+      "yzxterm"
       "rio"
       "foot"
       "wezterm"
