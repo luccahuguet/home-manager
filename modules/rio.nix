@@ -68,6 +68,9 @@
 
     confirm-before-quit = false
 
+    [effects]
+    trail-cursor = true
+
     [window]
     opacity = 0.88
     decorations = "disabled"
