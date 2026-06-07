@@ -1,16 +1,10 @@
-{ inputs, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
   let
     system = pkgs.stdenv.hostPlatform.system;
     aiPkgs = inputs.llm-agents.packages.${system};
 
     beadsRust = inputs.yazelix.packages.${system}.beads_rust;
     homeManager = inputs.home-manager.packages.${system}.home-manager;
-    rustToolchain = inputs.yazelix.inputs.fenix.packages.${system}.combine [
-      inputs.yazelix.inputs.fenix.packages.${system}.stable.cargo
-      inputs.yazelix.inputs.fenix.packages.${system}.stable.rustc
-      inputs.yazelix.inputs.fenix.packages.${system}.stable.rustfmt
-      inputs.yazelix.inputs.fenix.packages.${system}.stable.clippy
-    ];
     vercelCli = pkgs.writeShellApplication {
       name = "vercel";
       runtimeInputs = [ pkgs.nodejs_24 ];
@@ -110,6 +104,16 @@ $nix_limits"
   in
 
 {
+  home.activation.installRustupStableToolchain = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if ! ${pkgs.rustup}/bin/rustup toolchain list | ${pkgs.gnugrep}/bin/grep -q '^stable'; then
+      run ${pkgs.rustup}/bin/rustup toolchain install stable --profile minimal --component rustfmt --component clippy --component rust-analyzer --target wasm32-wasip1
+    else
+      run ${pkgs.rustup}/bin/rustup component add --toolchain stable rustfmt clippy rust-analyzer
+      run ${pkgs.rustup}/bin/rustup target add --toolchain stable wasm32-wasip1
+    fi
+    run ${pkgs.rustup}/bin/rustup default stable
+  '';
+
   home.packages =
     (with pkgs; [
       ruff
@@ -140,7 +144,7 @@ $nix_limits"
       bun
       cargo-nextest
       cargo-udeps
-      rust-analyzer
+      rustup
       jq
       nu-lint
       cachix
@@ -150,7 +154,6 @@ $nix_limits"
       aiPkgs.opencode
       aiPkgs.beads-viewer
       beadsRust
-      rustToolchain
       vercelCli
       hmSwitchCool
       hms
