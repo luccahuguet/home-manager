@@ -148,6 +148,7 @@ $nix_limits"
       jq
       nu-lint
       cachix
+      actionlint
     ])
     ++ [
       aiPkgs.claude-code
