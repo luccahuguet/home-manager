@@ -735,11 +735,11 @@
         "zjstatus": "zjstatus"
       },
       "locked": {
-        "lastModified": 1781381619,
-        "narHash": "sha256-1tSSNAh/+gpuZHfIPvAe7bQGhGUPV7iX9j99YE4XKhw=",
+        "lastModified": 1781382979,
+        "narHash": "sha256-xqfT15dNYguBXi2/PWo/t3PmCL2wQ+naDgFnc/xFIQA=",
         "ref": "refs/heads/main",
-        "rev": "ecaba5154ce3860dbb08f949dcb3765e0aaeb3bb",
-        "revCount": 3399,
+        "rev": "0e1e7fb2f8fcbc5fda061001d013a7243b8932b4",
+        "revCount": 3400,
         "type": "git",
         "url": "file:///home/lucca/pjs/yazelix-dir/yazelix"
       },
@@ -853,11 +853,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1781374029,
-        "narHash": "sha256-IvnfAYZKEXyo4y3223VAB9zOz90m1ujLWU342bYqlbg=",
+        "lastModified": 1781382831,
+        "narHash": "sha256-jjd0um9WXG/cJmeKVOlGvSdvWYBWQpFH7Y/yFHbepF4=",
         "owner": "luccahuguet",
         "repo": "yazelix-terminal",
-        "rev": "63541ef958961ad8f685822b04fe0f819a6d00a1",
+        "rev": "b088875d19a9c08c4959fd798108f17f71cb49a7",
         "type": "github"
       },
       "original": {
@@ -937,11 +937,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781381503,
-        "narHash": "sha256-lFSnuKpxXsSUnQYZkJsx4nXtVrJk7DjIPX4yadPLvTc=",
+        "lastModified": 1781382831,
+        "narHash": "sha256-PxCxrzsaCSaELKuJ0R3MJQ7WhxlWgoHWBzo+zGBoTSE=",
         "owner": "luccahuguet",
         "repo": "yazelix-zellij-bar",
-        "rev": "45315b290ff7c1b769b5c8d73aedbb61ce40b387",
+        "rev": "faaba497c33f7641d0317e7f033c27265de93aee",
         "type": "github"
       },
       "original": {
