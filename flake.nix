@@ -12,11 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     yazelix = {
-      url = "git+file:///home/lucca/pjs/yazelix";
+      url = "git+file:///home/lucca/pjs/yazelix-dir/yazelix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rio = {
-      url = "path:/home/lucca/pjs/open_source/yazelix_related/rio";
+      url = "path:/home/lucca/pjs/yazelix-related/rio";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Disabled by default in home.nix. Kept locked for quick plain-Zellij
