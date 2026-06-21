@@ -5,6 +5,10 @@
 
     beadsRust = inputs.yazelix.packages.${system}.beads_rust;
     homeManager = inputs.home-manager.packages.${system}.home-manager;
+    notoSansSymbols2 = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansSymbols2/NotoSansSymbols2-Regular.ttf";
+      hash = "sha256-YwhG1Sjb5MSYE3Ck0KlHWh/RSRoSm7QR+OFXzbXeE8Y=";
+    };
     cargoCrap = pkgs.rustPlatform.buildRustPackage rec {
       pname = "cargo-crap";
       version = "0.2.2";
@@ -44,6 +48,13 @@
 
       vendorHash = "sha256-fLbRo8f2tNN1vZGsriZ8cL4gU+wa/SfCUBrDLGXd70M=";
       subPackages = [ "cmd/termshot" ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      patches = [ ./patches/termshot-nerd-font-fallback.patch ];
+
+      postInstall = ''
+        wrapProgram "$out/bin/termshot" \
+          --set-default TERMSHOT_FONT_FALLBACKS "${pkgs.nerd-fonts.fira-code}/share/fonts/truetype/NerdFonts/FiraCode/FiraCodeNerdFontMono-Regular.ttf:${notoSansSymbols2}:${pkgs.freefont_ttf}/share/fonts/truetype/FreeMono.ttf:${pkgs.noto-fonts-monochrome-emoji}/share/fonts/noto/NotoEmoji.ttf"
+      '';
 
       meta = {
         description = "Create screenshots based on terminal command output";

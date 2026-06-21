@@ -1,0 +1,170 @@
+diff --git a/internal/img/output.go b/internal/img/output.go
+index 2882994..3aa2a37 100644
+--- a/internal/img/output.go
++++ b/internal/img/output.go
+@@ -37,6 +37,7 @@ import (
+ 	"github.com/gonvenience/font"
+ 	"github.com/gonvenience/term"
+ 	imgfont "golang.org/x/image/font"
++	"golang.org/x/image/math/fixed"
+ )
+ 
+ const (
+@@ -59,6 +60,128 @@ var commandIndicator = func() string {
+ 	return "➜"
+ }()
+ 
++type loadedFontFace struct {
++	source      *truetype.Font
++	face        imgfont.Face
++	supportsAll bool
++}
++
++func loadPrimaryFontFace(path string, options *truetype.Options, fallback imgfont.Face) loadedFontFace {
++	if path == "" {
++		return loadedFontFace{face: fallback, supportsAll: true}
++	}
++
++	data, err := os.ReadFile(path)
++	if err != nil {
++		return loadedFontFace{face: fallback, supportsAll: true}
++	}
++
++	parsed, err := truetype.Parse(data)
++	if err != nil {
++		return loadedFontFace{face: fallback, supportsAll: true}
++	}
++
++	return loadedFontFace{
++		source: parsed,
++		face:   truetype.NewFace(parsed, options),
++	}
++}
++
++func loadOptionalFontFace(path string, options *truetype.Options) (loadedFontFace, bool) {
++	if path == "" {
++		return loadedFontFace{}, false
++	}
++
++	data, err := os.ReadFile(path)
++	if err != nil {
++		return loadedFontFace{}, false
++	}
++
++	parsed, err := truetype.Parse(data)
++	if err != nil {
++		return loadedFontFace{}, false
++	}
++
++	return loadedFontFace{
++		source: parsed,
++		face:   truetype.NewFace(parsed, options),
++	}, true
++}
++
++func isPrivateUse(r rune) bool {
++	return (r >= 0xE000 && r <= 0xF8FF) || (r >= 0xF0000 && r <= 0xFFFFD) || (r >= 0x100000 && r <= 0x10FFFD)
++}
++
++func isPowerline(r rune) bool {
++	return r >= 0xE0A0 && r <= 0xE0D7
++}
++
++func (face loadedFontFace) supports(r rune) bool {
++	if face.source == nil {
++		return face.supportsAll && (r < 0x2B00 || isPowerline(r))
++	}
++
++	return face.source.Index(r) != 0
++}
++
++type fallbackFace struct {
++	primary   loadedFontFace
++	fallbacks []loadedFontFace
++}
++
++func newFallbackFace(
++	primaryPath string,
++	fallbackPaths string,
++	options *truetype.Options,
++	fallback imgfont.Face,
++) imgfont.Face {
++	primary := loadPrimaryFontFace(primaryPath, options, fallback)
++	faces := []loadedFontFace{}
++
++	for _, path := range strings.Split(fallbackPaths, ":") {
++		if face, ok := loadOptionalFontFace(path, options); ok {
++			faces = append(faces, face)
++		}
++	}
++
++	return fallbackFace{
++		primary:   primary,
++		fallbacks: faces,
++	}
++}
++
++func (face fallbackFace) faceFor(r rune) imgfont.Face {
++	if face.primary.supports(r) {
++		return face.primary.face
++	}
++
++	for _, fallback := range face.fallbacks {
++		if fallback.supports(r) {
++			return fallback.face
++		}
++	}
++
++	return face.primary.face
++}
++
++func (face fallbackFace) Close() error { return nil }
++
++func (face fallbackFace) Glyph(dot fixed.Point26_6, r rune) (image.Rectangle, image.Image, image.Point, fixed.Int26_6, bool) {
++	return face.faceFor(r).Glyph(dot, r)
++}
++
++func (face fallbackFace) GlyphBounds(r rune) (fixed.Rectangle26_6, fixed.Int26_6, bool) {
++	return face.faceFor(r).GlyphBounds(r)
++}
++
++func (face fallbackFace) GlyphAdvance(r rune) (fixed.Int26_6, bool) {
++	return face.faceFor(r).GlyphAdvance(r)
++}
++
++func (face fallbackFace) Kern(r0, r1 rune) fixed.Int26_6 { return face.primary.face.Kern(r0, r1) }
++
++func (face fallbackFace) Metrics() imgfont.Metrics { return face.primary.face.Metrics() }
++
+ type Scaffold struct {
+ 	content bunt.String
+ 
+@@ -97,6 +220,13 @@ func NewImageCreator() Scaffold {
+ 		DPI:  defaultFontDPI,
+ 	}
+ 
++	regularFallback := font.Hack.Regular(fontFaceOptions)
++	boldFallback := font.Hack.Bold(fontFaceOptions)
++	italicFallback := font.Hack.Italic(fontFaceOptions)
++	boldItalicFallback := font.Hack.BoldItalic(fontFaceOptions)
++
++	fallbackFontPaths := os.Getenv("TERMSHOT_FONT_FALLBACKS")
++
+ 	return Scaffold{
+ 		defaultForegroundColor: bunt.LightGray,
+ 
+@@ -113,10 +243,10 @@ func NewImageCreator() Scaffold {
+ 		shadowOffsetX:   f * 16,
+ 		shadowOffsetY:   f * 16,
+ 
+-		regular:    font.Hack.Regular(fontFaceOptions),
+-		bold:       font.Hack.Bold(fontFaceOptions),
+-		italic:     font.Hack.Italic(fontFaceOptions),
+-		boldItalic: font.Hack.BoldItalic(fontFaceOptions),
++		regular:    newFallbackFace(os.Getenv("TERMSHOT_FONT_REGULAR"), fallbackFontPaths, fontFaceOptions, regularFallback),
++		bold:       newFallbackFace(os.Getenv("TERMSHOT_FONT_BOLD"), fallbackFontPaths, fontFaceOptions, boldFallback),
++		italic:     newFallbackFace(os.Getenv("TERMSHOT_FONT_ITALIC"), fallbackFontPaths, fontFaceOptions, italicFallback),
++		boldItalic: newFallbackFace(os.Getenv("TERMSHOT_FONT_BOLD_ITALIC"), fallbackFontPaths, fontFaceOptions, boldItalicFallback),
+ 
+ 		lineSpacing: 1.2,
+ 		tabSpaces:   2,
