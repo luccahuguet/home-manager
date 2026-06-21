@@ -4,6 +4,7 @@
     ./modules/fonts.nix
     ./modules/packages.nix
     ./modules/cargo-sweep.nix
+    ./modules/mars.nix
     ./modules/rio.nix
     ./modules/yazelix.nix
     ./modules/yzpp-smoke.nix

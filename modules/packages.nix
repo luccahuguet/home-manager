@@ -5,6 +5,114 @@
 
     beadsRust = inputs.yazelix.packages.${system}.beads_rust;
     homeManager = inputs.home-manager.packages.${system}.home-manager;
+    cargoCrap = pkgs.rustPlatform.buildRustPackage rec {
+      pname = "cargo-crap";
+      version = "0.2.2";
+
+      src = pkgs.fetchCrate {
+        inherit pname version;
+        hash = "sha256-cZ30mdHHLXzpvMhkC6XoPMgfqAdsmdqhEfHq8T15Fmw=";
+      };
+
+      cargoHash = "sha256-vzkGNzQrVOtfpGLniGTdPRQfwA9jn5elXhudrFC7w9g=";
+
+      # The crates.io archive omits tests/fixtures/sample_workspace, which these
+      # workspace tests require. Keep the rest of the upstream test suite enabled.
+      checkFlags = [
+        "--skip=workspace_human_output_includes_per_crate_summary"
+        "--skip=workspace_json_includes_crate_field"
+        "--skip=workspace_summary_flag_shows_only_crate_table"
+      ];
+
+      meta = {
+        description = "Change Risk Anti-Patterns metric for Rust projects";
+        homepage = "https://github.com/minikin/cargo-crap";
+        license = pkgs.lib.licenses.mit;
+        mainProgram = "cargo-crap";
+      };
+    };
+    termshot = pkgs.buildGoModule rec {
+      pname = "termshot";
+      version = "0.6.1";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "homeport";
+        repo = "termshot";
+        rev = "v${version}";
+        hash = "sha256-YYN5ccfWkzthnwLjZAGgH8nm98Oci+KNYij8MS0/XY0=";
+      };
+
+      vendorHash = "sha256-fLbRo8f2tNN1vZGsriZ8cL4gU+wa/SfCUBrDLGXd70M=";
+      subPackages = [ "cmd/termshot" ];
+
+      meta = {
+        description = "Create screenshots based on terminal command output";
+        homepage = "https://github.com/homeport/termshot";
+        license = pkgs.lib.licenses.mit;
+        mainProgram = "termshot";
+      };
+    };
+    betamax = pkgs.stdenvNoCC.mkDerivation rec {
+      pname = "betamax";
+      version = "unstable-2026-06-21";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "marcus";
+        repo = "betamax";
+        rev = "36760ae903c8874f1edacd9d04c17df5b41d5a52";
+        hash = "sha256-yKmz2Cf7Xp2WhKJzDG8ZdC9/1IRKzDh/FZPPG0dYDoE=";
+      };
+
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+
+      runtimeInputs = [
+        pkgs.aha
+        pkgs.bash
+        pkgs.bc
+        pkgs.coreutils
+        pkgs.ffmpeg
+        pkgs.findutils
+        pkgs.gawk
+        pkgs.gnugrep
+        pkgs.gnused
+        (pkgs.python3.withPackages (pythonPackages: [
+          pythonPackages.pillow
+        ]))
+        pkgs.tmux
+        termshot
+      ];
+
+      dontBuild = true;
+
+      postPatch = ''
+        substituteInPlace lib/validate.sh \
+          --replace-fail '((line_num++))' '((++line_num))' \
+          --replace-fail '((errors++))' '((++errors))'
+        substituteInPlace lib/keys.sh \
+          --replace-fail '((SOURCE_DEPTH++))' '((++SOURCE_DEPTH))'
+      '';
+
+      installPhase = ''
+        runHook preInstall
+
+        mkdir -p "$out/share/betamax" "$out/bin"
+        cp -R . "$out/share/betamax"
+        chmod +x "$out/share/betamax/betamax" "$out/share/betamax/bin/betamax-record" "$out/share/betamax/bin/betamax-capture"
+        patchShebangs "$out/share/betamax"
+
+        makeWrapper "$out/share/betamax/betamax" "$out/bin/betamax" \
+          --prefix PATH : "${lib.makeBinPath runtimeInputs}"
+
+        runHook postInstall
+      '';
+
+      meta = {
+        description = "Terminal session recorder and screenshot tool for TUI apps";
+        homepage = "https://github.com/marcus/betamax";
+        license = pkgs.lib.licenses.mit;
+        mainProgram = "betamax";
+      };
+    };
     vercelCli = pkgs.writeShellApplication {
       name = "vercel";
       runtimeInputs = [ pkgs.nodejs_24 ];
@@ -133,6 +241,7 @@ $nix_limits"
       htop
       procs
       slurp
+      sysstat
       wev
       wl-clipboard
       wshowkeys
@@ -143,6 +252,8 @@ $nix_limits"
       nodejs_24
       bun
       cargo-nextest
+      cargo-llvm-cov
+      cargo-mutants
       cargo-udeps
       rustup
       jq
@@ -150,11 +261,17 @@ $nix_limits"
       cachix
       actionlint
     ])
+    ++ lib.optionals pkgs.stdenv.isLinux [
+      pkgs.perf
+    ]
     ++ [
       aiPkgs.claude-code
       aiPkgs.opencode
       aiPkgs.beads-viewer
       beadsRust
+      cargoCrap
+      termshot
+      betamax
       vercelCli
       hmSwitchCool
       hms

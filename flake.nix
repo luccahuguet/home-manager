@@ -15,8 +15,12 @@
       url = "git+file:///home/lucca/pjs/yazelix-dir/yazelix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mars = {
+      url = "git+file:///home/lucca/pjs/yazelix-dir/mars?ref=rebuild/rio-clean-mars";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     rio = {
-      url = "path:/home/lucca/pjs/yazelix-related/rio";
+      url = "github:raphamorim/rio/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Disabled by default in home.nix. Kept locked for quick plain-Zellij
