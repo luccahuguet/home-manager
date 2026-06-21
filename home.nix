@@ -7,6 +7,7 @@
     ./modules/mars.nix
     ./modules/rio.nix
     ./modules/yazelix.nix
+    ./modules/zellij.nix
     ./modules/yzpp-smoke.nix
   ];
 }
