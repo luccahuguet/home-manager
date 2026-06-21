@@ -19,6 +19,11 @@
       url = "git+file:///home/lucca/pjs/yazelix-dir/mars?ref=rebuild/rio-clean-mars";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    localYazelixCursors = {
+      url = "git+file:///home/lucca/pjs/yazelix-dir/yazelix-cursors";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.fenix.follows = "yazelix/fenix";
+    };
     rio = {
       url = "github:raphamorim/rio/main";
       inputs.nixpkgs.follows = "nixpkgs";

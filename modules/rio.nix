@@ -2,6 +2,10 @@
   let
     system = pkgs.stdenv.hostPlatform.system;
     rioUpstream = inputs.rio.packages.${system}.rio;
+    firaCodeNerdDir = "${pkgs.nerd-fonts.fira-code}/share/fonts/truetype/NerdFonts/FiraCode";
+    symbolsNerdDir = "${pkgs.nerd-fonts.symbols-only}/share/fonts/truetype/NerdFonts/Symbols";
+    notoSymbolsDir = "${pkgs.noto-fonts}/share/fonts/noto";
+    notoEmojiDir = "${pkgs.noto-fonts-color-emoji}/share/fonts/noto";
 
     mesaVulkanIcdDir = "${pkgs.mesa}/share/vulkan/icd.d";
     mesaVulkanIcdFiles = lib.concatStringsSep ":" (map
@@ -64,25 +68,72 @@
   ];
 
   xdg.configFile."rio/config.toml".text = ''
-    # See the full configuration reference: https://rioterm.com/docs/config
+    # Rio-compatible Yazelix dogfood config.
 
     confirm-before-quit = false
+    scrollback-history-limit = 0
+    force-theme = "dark"
+    enable-scroll-bar = false
+
+    [bell]
+    audio = false
+    visual = true
 
     [effects]
     trail-cursor = true
 
     [window]
-    opacity = 0.88
-    decorations = "disabled"
+    width = 960
+    height = 620
+    decorations = "Disabled"
+    opacity = 0.78
+    opacity-cells = true
+
+    [panel]
+    margin = [0.0]
+    padding = [0.0]
+    border-width = 0.0
 
     [fonts]
     family = "FiraCode Nerd Font Mono"
     size = 18.0
-    additional-dirs = [ "${pkgs.noto-fonts-monochrome-emoji}/share/fonts/noto" ]
-    symbol-map = [
-      { start = "2600", end = "27C0", font-family = "Noto Emoji" },
-      { start = "1F000", end = "1FB00", font-family = "Noto Emoji" },
+    additional-dirs = [
+      "${firaCodeNerdDir}",
+      "${symbolsNerdDir}",
+      "${notoSymbolsDir}",
+      "${notoEmojiDir}"
     ]
+    symbol-map = [
+      { start = "E000", end = "F900", font-family = "Symbols Nerd Font Mono" },
+      { start = "F0000", end = "F3000", font-family = "Symbols Nerd Font Mono" },
+      { start = "1F5B0", end = "1F5C0", font-family = "Noto Sans Symbols2" },
+      { start = "2600", end = "276F", font-family = "Noto Color Emoji" },
+      { start = "1F000", end = "1F5B0", font-family = "Noto Color Emoji" },
+      { start = "1F5C0", end = "1FB00", font-family = "Noto Color Emoji" },
+    ]
+
+    [colors]
+    background = "#111416"
+    foreground = "#eeeeec"
+    black = "#000000"
+    red = "#cd0000"
+    green = "#00cd00"
+    yellow = "#cdcd00"
+    blue = "#1093f5"
+    magenta = "#cd00cd"
+    cyan = "#00cdcd"
+    white = "#faebd7"
+    light-black = "#404040"
+    light-red = "#ff0000"
+    light-green = "#00ff00"
+    light-yellow = "#ffff00"
+    light-blue = "#11b5f6"
+    light-magenta = "#ff00ff"
+    light-cyan = "#00ffff"
+    light-white = "#ffffff"
+
+    [navigation]
+    mode = "Plain"
   '';
 
   xdg.dataFile = {

@@ -345,6 +345,30 @@
         "type": "github"
       }
     },
+    "localYazelixCursors": {
+      "inputs": {
+        "fenix": [
+          "yazelix",
+          "fenix"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782066580,
+        "narHash": "sha256-B56udM7dKNaAPlImEqRmFpMA4iZMI11gabCdZQ/6ghM=",
+        "ref": "refs/heads/main",
+        "rev": "e788f91ec5b3b31ce7311c886f1bd81064b0d163",
+        "revCount": 23,
+        "type": "git",
+        "url": "file:///home/lucca/pjs/yazelix-dir/yazelix-cursors"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/lucca/pjs/yazelix-dir/yazelix-cursors"
+      }
+    },
     "mars": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -355,11 +379,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1782013383,
-        "narHash": "sha256-2BNrk2fhCEt51QJF7fvbSQeE4DP9JGzleEMZW2m7MmA=",
+        "lastModified": 1782076580,
+        "narHash": "sha256-oK7sHcKG9F/9rElpfBnlk40o54oIS2iHJI2EXfC/4AI=",
         "ref": "rebuild/rio-clean-mars",
-        "rev": "a1165abd2321a2c69b4c434f346a8e842b4d1549",
-        "revCount": 4293,
+        "rev": "5d59846f422609d6550daa90cf7687dbb724312f",
+        "revCount": 4334,
         "type": "git",
         "url": "file:///home/lucca/pjs/yazelix-dir/mars"
       },
@@ -533,6 +557,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "llm-agents": "llm-agents",
+        "localYazelixCursors": "localYazelixCursors",
         "mars": "mars",
         "nixpkgs": "nixpkgs",
         "rio": "rio",
@@ -858,11 +883,11 @@
         "zjstatus": "zjstatus"
       },
       "locked": {
-        "lastModified": 1782004241,
-        "narHash": "sha256-0UZFqauptDhF6bA/WCFBHz+z0Bzo1o6SKglmqRUrGwU=",
-        "ref": "refs/heads/main",
-        "rev": "f6c9cc3f42fb88148179b4e2c4f0a29cef1b27b8",
-        "revCount": 3604,
+        "lastModified": 1782077272,
+        "narHash": "sha256-CUOS8ZZx157pK1KL5nZo8L4UySch8SeUyFpF1lSvFgc=",
+        "ref": "main",
+        "rev": "a4bd4ddadd3a009a6465aa28325e8dd9ca815b0a",
+        "revCount": 3616,
         "type": "git",
         "url": "file:///home/lucca/pjs/yazelix-dir/yazelix"
       },
@@ -973,11 +998,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781498216,
-        "narHash": "sha256-46vNIjYKL6tByQf1Pcy1ynll/A7AKJ4lrMXn7LM5yqc=",
+        "lastModified": 1782051515,
+        "narHash": "sha256-dkgLD2I+XwIeCJp9CkQmhYqMR3b6DnwpWy7/ZkO+LhA=",
         "owner": "luccahuguet",
         "repo": "yazelix-yazi-assets",
-        "rev": "0190035d7203251411917d0e9100a9c54f3dd907",
+        "rev": "e9a936a2f2de05024a8e9d6d2f95d0a205fb0bf4",
         "type": "github"
       },
       "original": {
@@ -1019,11 +1044,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781899143,
-        "narHash": "sha256-3OTtOd4l30b9M3K7Rul2Y076Wv2t3J5/PglIpNmy9ck=",
+        "lastModified": 1782065402,
+        "narHash": "sha256-ZA8tyVLjOOmvKm6S01Hv2mkjjVPqXC2UwN1dkyb8Ih8=",
         "owner": "luccahuguet",
         "repo": "yazelix-zellij-bar",
-        "rev": "e92a2640639ebb21bf873d6050f381dc266f511e",
+        "rev": "9a072e4b7549a740e8ab08726e6480d4c55ddade",
         "type": "github"
       },
       "original": {

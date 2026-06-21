@@ -2,24 +2,11 @@
 let
   system = pkgs.stdenv.hostPlatform.system;
   marsPackage = inputs.mars.packages.${system}.mars;
-  mesaVulkanIcdDir = "${pkgs.mesa}/share/vulkan/icd.d";
-  mesaVulkanIcdFiles = lib.concatStringsSep ":" (map
-    (name: "${mesaVulkanIcdDir}/${name}")
-    [
-      "asahi_icd.x86_64.json"
-      "broadcom_icd.x86_64.json"
-      "dzn_icd.x86_64.json"
-      "freedreno_icd.x86_64.json"
-      "gfxstream_vk_icd.x86_64.json"
-      "intel_hasvk_icd.x86_64.json"
-      "intel_icd.x86_64.json"
-      "lvp_icd.x86_64.json"
-      "nouveau_icd.x86_64.json"
-      "panfrost_icd.x86_64.json"
-      "powervr_mesa_icd.x86_64.json"
-      "radeon_icd.x86_64.json"
-      "virtio_icd.x86_64.json"
-    ]);
+  yzcPackage = inputs.localYazelixCursors.packages.${system}.yazelix_cursors;
+  firaCodeNerdDir = "${pkgs.nerd-fonts.fira-code}/share/fonts/truetype/NerdFonts/FiraCode";
+  symbolsNerdDir = "${pkgs.nerd-fonts.symbols-only}/share/fonts/truetype/NerdFonts/Symbols";
+  notoSymbolsDir = "${pkgs.noto-fonts}/share/fonts/noto";
+  notoEmojiDir = "${pkgs.noto-fonts-color-emoji}/share/fonts/noto";
   marsLaunchEnv = ''
     unset LD_LIBRARY_PATH
     for name in "''${!YAZELIX_@}"; do
@@ -35,9 +22,6 @@ let
     unset ZELLIJ_SOCKET_DIR
     unset ZELLIJ_DEFAULT_LAYOUT
     export MARS_CONFIG_HOME="''${MARS_CONFIG_HOME:-$HOME/.config/mars}"
-    export VK_ICD_FILENAMES="''${VK_ICD_FILENAMES:-${mesaVulkanIcdFiles}}"
-    export VK_LAYER_PATH="''${VK_LAYER_PATH:-${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d}"
-    export DRI_PRIME="''${DRI_PRIME:-pci-0000_00_02_0}"
   '';
   marsCli = pkgs.writeShellApplication {
     name = "mars";
@@ -51,25 +35,11 @@ let
     text = ''
       log_dir="''${XDG_CACHE_HOME:-$HOME/.cache}"
       mkdir -p "$log_dir"
-      {
-        printf '%s\n' "--- $(date --iso-8601=seconds) ---"
-        printf 'PATH=%s\n' "''${PATH:-}"
-        printf 'SHELL=%s\n' "''${SHELL:-}"
-        printf 'LANG=%s\n' "''${LANG:-}"
-        printf 'XDG_RUNTIME_DIR=%s\n' "''${XDG_RUNTIME_DIR:-}"
-        printf 'WAYLAND_DISPLAY=%s\n' "''${WAYLAND_DISPLAY:-}"
-        printf 'DISPLAY=%s\n' "''${DISPLAY:-}"
-        printf 'XDG_CURRENT_DESKTOP=%s\n' "''${XDG_CURRENT_DESKTOP:-}"
-        printf 'VK_ICD_FILENAMES(before)=%s\n' "''${VK_ICD_FILENAMES:-}"
-        printf 'VK_LAYER_PATH(before)=%s\n' "''${VK_LAYER_PATH:-}"
-        printf 'DRI_PRIME(before)=%s\n' "''${DRI_PRIME:-}"
-      } >> "$log_dir/mars-desktop-launch.log" 2>&1
-
       ${marsLaunchEnv}
-      ${marsPackage}/bin/mars "$@" >> "$log_dir/mars-desktop-launch.log" 2>&1
-      status=$?
-      printf 'mars exit status=%s\n' "$status" >> "$log_dir/mars-desktop-launch.log"
-      exit "$status"
+      exec ${marsPackage}/bin/mars-launch-trace \
+        --log-file "$log_dir/mars-desktop-launch.log" \
+        --label mars-desktop \
+        -- ${marsPackage}/bin/mars "$@"
     '';
   };
   marsYazelix = pkgs.writeShellApplication {
@@ -79,8 +49,11 @@ let
         exec ${marsDesktop}/bin/mars-desktop "$@"
       fi
 
-      export MARS_CONFIG_HOME="''${MARS_YAZELIX_CONFIG_HOME:-$HOME/.config/mars-yazelix}"
-      exec ${marsDesktop}/bin/mars-desktop -e yzx enter
+      base_mars_config_home="''${MARS_YAZELIX_CONFIG_HOME:-$HOME/.config/mars-yazelix}"
+      cursor_config_home="$(${yzcPackage}/bin/yzc materialize rio-compatible-config \
+        --source-config "$base_mars_config_home/config.toml")"
+      export MARS_CONFIG_HOME="$cursor_config_home"
+      exec ${marsDesktop}/bin/mars-desktop -e env MARS=mars YAZELIX_SESSION_TERMINAL=mars /home/lucca/.nix-profile/bin/yzx enter
     '';
   };
   marsIconSizes = [ 16 24 32 48 64 128 256 512 1024 ];
@@ -99,6 +72,13 @@ let
     force-theme = "dark"
     enable-scroll-bar = false
 
+    [bell]
+    audio = false
+    visual = true
+
+    [effects]
+    trail-cursor = true
+
     [window]
     width = 960
     height = 620
@@ -112,12 +92,21 @@ let
     border-width = 0.0
 
     [fonts]
-    family = "FiraCode Nerd Font"
+    family = "FiraCode Nerd Font Mono"
     size = 18.0
-    additional-dirs = [ "${pkgs.noto-fonts-monochrome-emoji}/share/fonts/noto" ]
+    additional-dirs = [
+      "${firaCodeNerdDir}",
+      "${symbolsNerdDir}",
+      "${notoSymbolsDir}",
+      "${notoEmojiDir}"
+    ]
     symbol-map = [
-      { start = "2600", end = "27C0", font-family = "Noto Emoji" },
-      { start = "1F000", end = "1FB00", font-family = "Noto Emoji" },
+      { start = "E000", end = "F900", font-family = "Symbols Nerd Font Mono" },
+      { start = "F0000", end = "F3000", font-family = "Symbols Nerd Font Mono" },
+      { start = "1F5B0", end = "1F5C0", font-family = "Noto Sans Symbols2" },
+      { start = "2600", end = "276F", font-family = "Noto Color Emoji" },
+      { start = "1F000", end = "1F5B0", font-family = "Noto Color Emoji" },
+      { start = "1F5C0", end = "1FB00", font-family = "Noto Color Emoji" },
     ]
 
     [colors]
