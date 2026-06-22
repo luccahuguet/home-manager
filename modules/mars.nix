@@ -65,7 +65,8 @@ let
         -resize ${toString size}x${toString size} "$out"
     '';
   marsConfigText = ''
-    # Rio-compatible Yazelix dogfood config.
+    # Mars dogfood base config.
+    # Keep terminal-specific Yazelix cursor experiments in marsYazelixConfigText.
 
     confirm-before-quit = false
     scrollback-history-limit = 0
@@ -132,6 +133,16 @@ let
     [navigation]
     mode = "Plain"
   '';
+  marsYazelixConfigText = marsConfigText + ''
+
+    # Temporary Mars-only split cursor smoke.
+    [yazelix.cursor]
+    family = "split"
+    divider = "vertical"
+    transition = "hard"
+    colors = ["#00e6ff", "#00ff66"]
+    cursor_color = "#00e6ff"
+  '';
 in
 {
   home.packages = [
@@ -141,7 +152,7 @@ in
   ];
 
   xdg.configFile."mars/config.toml".text = marsConfigText;
-  xdg.configFile."mars-yazelix/config.toml".text = marsConfigText;
+  xdg.configFile."mars-yazelix/config.toml".text = marsYazelixConfigText;
 
   xdg.dataFile =
     {
