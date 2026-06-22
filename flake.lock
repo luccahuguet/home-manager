@@ -345,52 +345,28 @@
         "type": "github"
       }
     },
-    "localYazelixCursors": {
-      "inputs": {
-        "fenix": [
-          "yazelix",
-          "fenix"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1782066580,
-        "narHash": "sha256-B56udM7dKNaAPlImEqRmFpMA4iZMI11gabCdZQ/6ghM=",
-        "ref": "refs/heads/main",
-        "rev": "e788f91ec5b3b31ce7311c886f1bd81064b0d163",
-        "revCount": 23,
-        "type": "git",
-        "url": "file:///home/lucca/pjs/yazelix-dir/yazelix-cursors"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:///home/lucca/pjs/yazelix-dir/yazelix-cursors"
-      }
-    },
     "mars": {
       "inputs": {
-        "flake-parts": "flake-parts_2",
+        "flake-parts": "flake-parts_3",
         "nixpkgs": [
+          "yazelix",
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay",
-        "systems": "systems_2"
+        "rust-overlay": "rust-overlay_2",
+        "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1782101371,
-        "narHash": "sha256-ic2ZM+wrlR0Cxrp5EIqUzXxQcOPTegeHskN5fpMUc6U=",
-        "ref": "rebuild/rio-clean-mars",
-        "rev": "b875db8cfe137464149239925412d13bedd4e54b",
-        "revCount": 4360,
-        "type": "git",
-        "url": "file:///home/lucca/pjs/yazelix-dir/mars"
+        "lastModified": 1782135733,
+        "narHash": "sha256-CewqcVvPL6YGPhTS3ubtx03hpBuBs2YPaZzS1MmJNgw=",
+        "owner": "luccahuguet",
+        "repo": "mars",
+        "rev": "098d84b9d30ddf9cdea97a706dd6f31bbcdf4308",
+        "type": "github"
       },
       "original": {
-        "ref": "rebuild/rio-clean-mars",
-        "type": "git",
-        "url": "file:///home/lucca/pjs/yazelix-dir/mars"
+        "owner": "luccahuguet",
+        "repo": "mars",
+        "type": "github"
       }
     },
     "nixgl": {
@@ -506,12 +482,12 @@
     },
     "rio": {
       "inputs": {
-        "flake-parts": "flake-parts_3",
+        "flake-parts": "flake-parts_2",
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_2",
-        "systems": "systems_3"
+        "rust-overlay": "rust-overlay",
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1781435951,
@@ -557,8 +533,6 @@
       "inputs": {
         "home-manager": "home-manager",
         "llm-agents": "llm-agents",
-        "localYazelixCursors": "localYazelixCursors",
-        "mars": "mars",
         "nixpkgs": "nixpkgs",
         "rio": "rio",
         "yazelix": "yazelix",
@@ -602,7 +576,7 @@
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "mars",
+          "rio",
           "nixpkgs"
         ]
       },
@@ -623,7 +597,8 @@
     "rust-overlay_2": {
       "inputs": {
         "nixpkgs": [
-          "rio",
+          "yazelix",
+          "mars",
           "nixpkgs"
         ]
       },
@@ -867,6 +842,7 @@
       "inputs": {
         "fenix": "fenix",
         "home-manager": "home-manager_2",
+        "mars": "mars",
         "nixgl": "nixgl",
         "nixpkgs": [
           "nixpkgs"
@@ -883,11 +859,11 @@
         "zjstatus": "zjstatus"
       },
       "locked": {
-        "lastModified": 1782102133,
-        "narHash": "sha256-nuuIDoc/b+JjEz+7mc4h1VoAaN99D8xkltWEaWziZNA=",
+        "lastModified": 1782142172,
+        "narHash": "sha256-6cOqIYtRqP9Gd6n4R2e7ydZ9EqzJykHym44JMNziLJ4=",
         "ref": "refs/heads/main",
-        "rev": "f6211b651a165d78feb1e9ecc27d0076b069c86f",
-        "revCount": 3618,
+        "rev": "2c9e9b5ebf42e46181995b1f4d91196a6718e10c",
+        "revCount": 3634,
         "type": "git",
         "url": "file:///home/lucca/pjs/yazelix-dir/yazelix"
       },
