@@ -356,11 +356,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1782148656,
-        "narHash": "sha256-8ZASBdrO1XISBJeMpSglgBA2wTiqaswUTB3m/3SkusQ=",
+        "lastModified": 1782149818,
+        "narHash": "sha256-QRyS2MtUUQCmzpXBz9NukerW/o+S2V8ySNmXyqBKBKA=",
         "owner": "luccahuguet",
         "repo": "mars",
-        "rev": "b641c82cb6d323e7af0f3c068e613364d61199a1",
+        "rev": "ce036ebef5539649445f2c23723f52463c339e8d",
         "type": "github"
       },
       "original": {
@@ -859,11 +859,11 @@
         "zjstatus": "zjstatus"
       },
       "locked": {
-        "lastModified": 1782148700,
-        "narHash": "sha256-WvldZKMMOUwSd7WdvuFCS3bBgdPnfzHX1muz3UhnBzE=",
+        "lastModified": 1782149866,
+        "narHash": "sha256-YeQb7twPxlI7d4JDz8qjIajJGWVVQMYThOL/IXWYHNY=",
         "ref": "refs/heads/main",
-        "rev": "1e7e71b33e24b2cc6c14b9c25ad39cab7c4ece8a",
-        "revCount": 3641,
+        "rev": "ad0f6b81b1f91ca9ef5be5a27e5ddf911ab6ecc4",
+        "revCount": 3642,
         "type": "git",
         "url": "file:///home/lucca/pjs/yazelix-dir/yazelix"
       },
