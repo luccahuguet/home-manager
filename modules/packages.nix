@@ -239,6 +239,7 @@ $nix_limits"
       uv
       ty
       gh
+      mise
       tokei
       mdfried
       pandoc
@@ -271,6 +272,7 @@ $nix_limits"
       nu-lint
       cachix
       actionlint
+      zig_0_15
     ])
     ++ lib.optionals pkgs.stdenv.isLinux [
       pkgs.perf

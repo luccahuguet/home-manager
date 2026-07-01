@@ -6,13 +6,7 @@ in
   programs.yazelix = {
     enable = true;
     manage_config = false;
-    terminal = "ratty";
-    extra_terminal_launchers = [
-      "ghostty"
-      "rio"
-      "foot"
-      "wezterm"
-    ];
+    terminal = "mars";
     agent_usage_programs = [
       "tokenusage"
     ];
