@@ -238,6 +238,7 @@ $nix_limits"
       ruff
       uv
       ty
+      emacs-nox
       gh
       mise
       tokei
